@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/trans_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/transl_foreground"
+            android:drawableTint="@color/cardview_light_background"
+            android:foregroundGravity="center"
+            android:paddingTop="40dp"
+            android:paddingBottom="80dp"
+            android:text="Translate"
+            android:textStyle="bold"
+            app:strokeColor="@color/ic_launcher_background"
+            app:strokeWidth="5dp" />
+
+        <Button
+            android:id="@+id/quizz_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/learn_foreground"
+            android:drawableTint="@color/cardview_light_background"
+            android:text="Learn"
+            android:textStyle="bold"
+            android:paddingBottom="80dp"
+            android:foregroundGravity="center"
+            android:paddingTop="40dp"
+            app:strokeColor="@color/ic_launcher_background"
+            app:strokeWidth="5dp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/notify_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/notification_foreground"
+            android:foregroundGravity="center"
+            android:drawableTint="@color/cardview_light_background"
+            android:text="Notifications"
+            android:paddingTop="40dp"
+            android:paddingBottom="80dp"
+            android:textStyle="bold"
+            app:strokeColor="@color/ic_launcher_background"
+            app:strokeWidth="5dp" />
+
+        <Button
+            android:id="@+id/stats_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/stats_foreground"
+            android:paddingBottom="80dp"
+            android:paddingTop="40dp"
+            android:foregroundGravity="center"
+            android:drawableTint="@color/cardview_light_background"
+            android:text="Statistics"
+            android:textStyle="bold"
+            app:strokeColor="@color/ic_launcher_background"
+            app:strokeWidth="5dp" />
+    </TableRow>
+</TableLayout>

@@ -10,22 +10,8 @@ import java.util.*
 class TransTextViewModel: ViewModel() {
     private val repository: Repository = Repository
 
-    private val _translatedTexts = MutableLiveData<List<TransTextData>>()
-    val translatedTexts: LiveData<List<TransTextData>>
-        get() = _translatedTexts
-
-    private val lang = "abc"
-//    fun addToDo() {
-//        repository.addTranslatedText(UUID.randomUUID().toString())
-//        refreshTexts(lang)
-//    }
-
-    fun onResume() {
-        refreshTexts(lang)
+    fun addText(text: String, meaning: String, dstLang: String) {
+        repository.addTranslatedText(UUID.randomUUID().toString(), text, meaning, dstLang)
     }
 
-
-    private fun refreshTexts(lang: String) {
-        _translatedTexts.value = repository.fetchLang(lang)
-    }
 }

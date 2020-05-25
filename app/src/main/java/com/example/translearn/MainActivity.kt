@@ -7,12 +7,28 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.room.Room
 import com.example.translearn.db.Database
+import com.example.translearn.translate.Language
 
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
         var appDatabase: Database? = null
+        var languages: Array<Language> = arrayOf(
+            Language("English", "en"), Language("Polish", "pl"),
+            Language("Czech", "cs"), Language("Danish", "da"),
+            Language("Dutch", "nl"), Language("Estonian", "et"),
+            Language("Finnish", "fi"), Language("French", "fr"),
+            Language("German", "de"), Language("Greek", "el"),
+            Language("Irish", "ga"), Language("Italian", "it"),
+            Language("Latvian", "lv"), Language("Lithuanian", "lt"),
+            Language("Norwegian", "no"), Language("Portuguese", "pt"),
+            Language("Romanian", "ro"), Language("Russian", "ru"),
+            Language("Serbian", "sr"), Language("Slovak", "sk"),
+            Language("Slovenian", "sl"), Language("Spanish", "es"),
+            Language("Swedish", "sv"), Language("Turkish", "tr"),
+            Language("Ukrainian", "uk"), Language("Bulgarian", "bg")
+        )
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

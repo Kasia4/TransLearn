@@ -9,17 +9,23 @@
         android:id="@+id/FirstFragment"
         android:name="com.example.translearn.FirstFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/menu_fragment">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_LearnFragment"
+            app:destination="@id/LearnFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_TranslateFragment"
+            app:destination="@id/TranslateFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.translearn.SecondFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/translate_fragment">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
@@ -27,5 +33,18 @@
         <argument
             android:name="myArg"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/LearnFragment"
+        android:name="com.example.translearn.LearnFragment"
+        android:label="@string/learn_fragment_label"
+        tools:layout="@layout/learn_fragment">
+    </fragment>
+    <fragment
+        android:id="@+id/TranslateFragment"
+        android:name="com.example.translearn.TranslateFragment"
+        android:label="@string/translate_fragment_label"
+        tools:layout="@layout/translate_fragment">
+
     </fragment>
 </navigation>
