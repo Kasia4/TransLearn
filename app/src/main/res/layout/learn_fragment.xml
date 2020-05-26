@@ -1,22 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LearnFragment"
-    android:background="@color/gray">
+    android:background="@color/gray"
+    tools:context=".LearnFragment">
 
+    <RelativeLayout
+        android:id="@+id/choose_rel_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/design_default_color_background"
+        android:layout_above="@id/to_learn_list"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/choose_lang_text_view"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:text="Choose language"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/choose_lang_spinner"
+            android:layout_width="150dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/choose_lang_text_view"
+            android:gravity="center_horizontal"
+            android:textAlignment="center" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/take_a_quiz_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/choose_rel_layout"
+        android:foregroundGravity="center"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
+        android:text="take a quiz"
+        android:textStyle="bold"
+        app:strokeColor="@color/ic_launcher_background"
+        app:strokeWidth="5dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/to_learn_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quizz_button"
+        android:layout_height="match_parent"
+        android:layout_below="@id/take_a_quiz_button"
         tools:listitem="@layout/flashcard" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -17,4 +17,5 @@
     <string name="learn_fragment_label">Learn</string>
     <string name="translate_fragment_label">Translate Fragment</string>
     <string name="edit_text_to_translate_hint">Touch and start typing...</string>
+    <string name="choice_quiz_fragment_label">Choice Quiz Fragment</string>
 </resources>

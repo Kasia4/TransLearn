@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChoiceQuizFragment"
+    android:background="@color/design_default_color_background">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/question_number_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question x/y"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/score_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Score: y"
+        android:layout_marginTop="6dp"
+        android:textSize="16sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:layout_below="@id/question_number_text_view"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/question_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/score_text_view"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#03DAC5">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/not_trans_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="Tu beda pytanka sobie"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#FFFFFF" />
+
+    </androidx.cardview.widget.CardView>
+
+    <RadioGroup
+        android:id="@+id/answers_button_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/question_card"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <RadioButton
+            android:id="@+id/answer1_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:text="Option 1" />
+
+        <RadioButton
+            android:id="@+id/answer2_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginTop="10dp"
+            android:text="Option 2"/>
+
+        <RadioButton
+            android:id="@+id/answer3_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginTop="10dp"
+            android:text="Option 3"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/confirm_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:foregroundGravity="center"
+        android:text="Confirm"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/answers_button_group" />
+</RelativeLayout>

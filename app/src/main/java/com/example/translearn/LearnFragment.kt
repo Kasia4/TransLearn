@@ -5,9 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.translearn.learn.LearnRecyclerViewAdapter
 import com.example.translearn.viewmodel.LearnTextViewModel
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.learn_fragment.*
 class LearnFragment : Fragment() {
     private lateinit var viewModel: LearnTextViewModel
     private val recycleViewAdapter: LearnRecyclerViewAdapter = LearnRecyclerViewAdapter(listOf())
-
+    private var lang: String = "en"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,32 +33,44 @@ class LearnFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val langs = MainActivity.languages.map{ language -> language.name}
+        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, langs)
+            .also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                choose_lang_spinner.adapter = adapter
+            }
+        choose_lang_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                lang = MainActivity.languages[position].code
+                viewModel.onResume(lang)
+            }
+        }
         // TODO use viewmodelprovider
         viewModel = ViewModelProviders.of(this).get(LearnTextViewModel::class.java)
         viewModel.translatedTexts.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(context, "uuu", Toast.LENGTH_SHORT).show()
             recycleViewAdapter.apply {
                 texts = it
                 notifyDataSetChanged()
             }
         })
-//        add_button.setOnClickListener { viewModel.addToDo() }
-//
         to_learn_list.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = recycleViewAdapter
         }
+
+        take_a_quiz_button.setOnClickListener{
+            Toast.makeText(context, "will be implemented", Toast.LENGTH_SHORT).show()
+            this.findNavController().navigate(R.id.action_LearnFragment_to_ChoiceQuizFragment)
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-//            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-//        }
-    }
     override fun onResume() {
         super.onResume()
-        viewModel.onResume("pl")
+        viewModel.onResume(lang)
     }
 }

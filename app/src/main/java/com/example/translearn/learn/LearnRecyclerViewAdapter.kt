@@ -27,8 +27,8 @@ class LearnRecyclerViewAdapter(var texts: List<TransTextData>) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         texts[position].apply {
-            holder.transText.text = text
-            holder.notTransText.text = meaning
+            holder.transText.text = meaning
+            holder.notTransText.text = text
         }
     }
 }

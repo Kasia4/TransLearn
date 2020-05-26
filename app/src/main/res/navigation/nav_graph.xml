@@ -39,6 +39,9 @@
         android:name="com.example.translearn.LearnFragment"
         android:label="@string/learn_fragment_label"
         tools:layout="@layout/learn_fragment">
+        <action
+            android:id="@+id/action_LearnFragment_to_ChoiceQuizFragment"
+            app:destination="@id/ChoiceQuizFragment" />
     </fragment>
     <fragment
         android:id="@+id/TranslateFragment"
@@ -47,4 +50,13 @@
         tools:layout="@layout/translate_fragment">
 
     </fragment>
+
+    <fragment
+        android:id="@+id/ChoiceQuizFragment"
+        android:name="com.example.translearn.ChoiceQuizFragment"
+        android:label="@string/choice_quiz_fragment_label"
+        tools:layout="@layout/choice_quiz_fragment">
+
+    </fragment>
+
 </navigation>

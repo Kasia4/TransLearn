@@ -11,7 +11,7 @@ data class TransTextData (
     var meaning: String,
     var lang: String
 ) {
-    constructor(translatedText: TranslatedText): this(id = translatedText.id!!, text = translatedText.text!!, meaning = translatedText.meaning!!, lang = translatedText.lang!!)
+    constructor(translatedText: TranslatedText): this(id = translatedText.id, text = translatedText.text, meaning = translatedText.meaning, lang = translatedText.lang)
 }
 
 data class UserData (
@@ -19,7 +19,7 @@ data class UserData (
     var score: Int = 0,
     val name: String
 ) {
-    constructor(user: User): this(id = user.id!!, score = user.score!!, name = user.name!!)
+    constructor(user: User): this(id = user.id, score = user.score, name = user.name)
 }
 
 object Repository {
@@ -33,14 +33,13 @@ object Repository {
     }
 
     fun addTranslatedText(id: String, text: String, meaning: String, lang: String) {
-        tTextDao.insert(TranslatedText(TransTextData(id = id, text = text, meaning = meaning, lang = lang)))
+        val textFromDB = fetchText(text, lang)
+        if (textFromDB.isEmpty()) {
+            tTextDao.insert(TranslatedText(TransTextData(id = id, text = text, meaning = meaning, lang = lang)))
+        }
     }
 
     fun fetchLang(lang: String): List<TransTextData> = tTextDao.findByLang(lang)!!.map{ TransTextData(it!!) }
-    fun fetchText(text: String): List<TransTextData> = tTextDao.findByText(text)!!.map{ TransTextData(it!!) }
-
-//
-//    fun markAsDone(todo: TranslatedText) {
-//        tTextDao.updateText(TodoEntity(todo.copy(done = true)))
-//    }
+    fun fetchThreeRandom(lang: String): List<TransTextData> = tTextDao.getThreeRandomByLang(lang)!!.map{ TransTextData(it!!) }
+    private fun fetchText(text: String, lang: String): List<TransTextData> = tTextDao.findByText(text, lang)!!.map{ TransTextData(it!!) }
 }

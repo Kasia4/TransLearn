@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.ViewModelProviders
 import com.example.translearn.translate.TranslationRequest
 import com.example.translearn.translate.TranslationResponseContainer
+import com.example.translearn.viewmodel.LearnTextViewModel
+import com.example.translearn.viewmodel.TransTextViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import okhttp3.*
@@ -20,6 +23,8 @@ import java.io.IOException
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class TranslateFragment : Fragment() {
+
+    private lateinit var viewModel: TransTextViewModel
     val srcLang: String = "pl"
     var dstLang: String? = null
     private val client = OkHttpClient()
@@ -34,7 +39,7 @@ class TranslateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel = ViewModelProviders.of(this).get(TransTextViewModel::class.java)
 
         val spinner1 = view.findViewById<Spinner>(R.id.languages1)
         ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listOf("Polish"))
@@ -84,6 +89,9 @@ class TranslateFragment : Fragment() {
                     else -> {
                         translate(input, srcLang!!, dstLang!!) { result ->
                             view.findViewById<AppCompatTextView>(R.id.translated_appCompatText).text = result
+                            if(!result.isNullOrEmpty()) {
+                                viewModel.addText(input, result!!, dstLang!!)
+                            }
                         }
                     }
                 }
