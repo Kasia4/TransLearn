@@ -41,9 +41,9 @@ class ChoiceQuizFragment : Fragment() {
         viewModel.translatedTexts.observe(viewLifecycleOwner, Observer {
             generateQuestion(it)
         })
-        val questNr = "Question ${viewModel.question_number.value}/5"
+        val questNr = "Question ${viewModel.questionNumber.value}/5"
         question_number_text_view.text= questNr
-        viewModel.question_number.observe(viewLifecycleOwner, Observer {
+        viewModel.questionNumber.observe(viewLifecycleOwner, Observer {
             val questionNr = "Question ${it}/5"
             question_number_text_view.text= questionNr
         })
@@ -53,7 +53,7 @@ class ChoiceQuizFragment : Fragment() {
             val scoreStr = "Score: $it"
             score_text_view.text=scoreStr
         })
-        if (viewModel.question_number.value!! >= questionCount) {
+        if (viewModel.questionNumber.value!! >= questionCount) {
             viewModel.reset_question_number()
             viewModel.reset_score()
         }
@@ -67,13 +67,14 @@ class ChoiceQuizFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Wrong :(", Toast.LENGTH_SHORT).show()
             }
-            if(viewModel.question_number.value!! >= questionCount) {
+            if(viewModel.questionNumber.value!! >= questionCount) {
                 val action = ChoiceQuizFragmentDirections.actionChoiceQuizFragmentToEndQuizFragment(viewModel.score.value!!)
                 this.findNavController().navigate(action)
+            } else {
+                viewModel.increment_question_number()
+                viewModel.onResume(args.learnLangCode)
             }
             answers_button_group.clearCheck()
-            viewModel.increment_question_number()
-            viewModel.onResume(args.learnLangCode)
         }
     }
 

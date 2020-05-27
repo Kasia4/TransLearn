@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_NotificationFragment"
             app:destination="@id/NotificationFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_StatisticsFragment"
+            app:destination="@id/StatisticsFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -88,10 +91,17 @@
     </fragment>
 
     <fragment
-        android:id="@+id/NotificationFragment"
-        android:name="com.example.translearn.NotificationFragment"
-        android:label="@string/notification_fragment_label"
-        tools:layout="@layout/notification_fragment">
+    android:id="@+id/NotificationFragment"
+    android:name="com.example.translearn.NotificationFragment"
+    android:label="@string/notification_fragment_label"
+    tools:layout="@layout/notification_fragment">
+</fragment>
+
+    <fragment
+        android:id="@+id/StatisticsFragment"
+        android:name="com.example.translearn.StatisticsFragment"
+        android:label="@string/statistics_label"
+        tools:layout="@layout/statistics_fragment">
     </fragment>
 
 </navigation>

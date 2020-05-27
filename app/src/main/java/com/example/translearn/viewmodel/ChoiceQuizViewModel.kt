@@ -9,7 +9,7 @@ import com.example.translearn.db.TransTextData
 class ChoiceQuizViewModel: ViewModel() {
     private val repository: Repository = Repository
     private val _question_number=MutableLiveData<Int>(1)
-    val question_number: LiveData<Int>
+    val questionNumber: LiveData<Int>
     get() = _question_number
 
     private val _score = MutableLiveData<Int>(0)
@@ -38,6 +38,10 @@ class ChoiceQuizViewModel: ViewModel() {
 
     fun reset_score() {
         _score.value = 0
+    }
+
+    fun save_score() {
+
     }
 
     private fun refreshTexts(lang: String) {

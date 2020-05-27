@@ -11,16 +11,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.translearn.notification.AlarmReceiver
+import com.example.translearn.viewmodel.NotificationVievModel
+import com.example.translearn.viewmodel.TransTextViewModel
 import kotlinx.android.synthetic.main.notification_fragment.*
 import java.util.*
+import kotlin.random.Random as KotlinRandomRandom
 
 /**
  * A simple [Fragment] subclass.
  */
 class NotificationFragment : Fragment() {
+    private lateinit var viewModel: NotificationVievModel
     private var alarmMgr: AlarmManager? = null
     private lateinit var alarmIntent: PendingIntent
+    private var intentNr: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,16 +37,30 @@ class NotificationFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(NotificationVievModel::class.java)
+        viewModel.notification.observe(viewLifecycleOwner, Observer {
+            val details: String
+            if (it.isNullOrEmpty()) {
+                details = "Notification not set"
+            } else if (it[0].minute < 10) {
+                details = "Notification set on: ${it[0].hour}:0${it[0].minute}"
+            } else {
+                details = "Notification set on: ${it[0].hour}:${it[0].minute}"
+            }
+            notification_details_text.text=details
+        })
         time_picker.setIs24HourView(true)
         set_notification_button.setOnClickListener {
             val hour: Int = time_picker.hour
             val minutes: Int = time_picker.minute
-            val details = "Notification set on: ${hour}:${minutes}"
-            notification_details_text.text=details
-            time_picker
+            viewModel.addOrUpdateNotification(hour, minutes)
             setAlarm(hour, minutes)
+        }
+        cancel_notification_button.setOnClickListener {
+            cancelAlarm()
+            viewModel.deleteNotification()
         }
     }
 
@@ -47,14 +68,33 @@ class NotificationFragment : Fragment() {
     private fun setAlarm(hour: Int, minutes: Int) {
         alarmMgr = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-            PendingIntent.getBroadcast(context, 1, intent, 0)
+            PendingIntent.getBroadcast(context, intentNr, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+        alarmMgr?.cancel(alarmIntent)
+        alarmIntent.cancel()
+        intentNr = KotlinRandomRandom(System.nanoTime()).nextInt(10000)
+        alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+            PendingIntent.getBroadcast(context, intentNr, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, minutes)
         calendar.set(Calendar.SECOND, 0)
-       // alarmMgr?.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, 1000 * 60 * 10, alarmIntent)
-        alarmMgr?.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, alarmIntent )
+        val dayInMillis :Long = 1000 * 60 * 60 * 24
+        alarmMgr?.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, dayInMillis, alarmIntent)
     }
 
+    private fun cancelAlarm() {
+        alarmMgr = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+            PendingIntent.getBroadcast(context, intentNr, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+        alarmMgr?.cancel(alarmIntent)
+        alarmIntent.cancel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
+    }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".EndQuizFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/added_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center|center_horizontal"
+        android:text="Translated words: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/design_default_color_background"
+        android:textStyle="bold"
+        app:drawableTopCompat="@drawable/stats_foreground" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/scored_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/added_view"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center|center_horizontal"
+        android:text="Already quessed in quiz: "
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/design_default_color_background"
+        android:textStyle="bold" />
+
+</RelativeLayout>
