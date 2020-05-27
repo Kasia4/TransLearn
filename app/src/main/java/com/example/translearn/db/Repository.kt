@@ -1,5 +1,6 @@
 package com.example.translearn.db
 
+import androidx.lifecycle.map
 import com.example.translearn.MainActivity
 import java.util.*
 
@@ -12,12 +13,12 @@ data class TransTextData (
     constructor(translatedText: TranslatedText): this(id = translatedText.id, text = translatedText.text, meaning = translatedText.meaning, lang = translatedText.lang)
 }
 
-data class UserData (
+data class ScoreData (
     val id: String = UUID.randomUUID().toString(),
-    var score: Int = 0,
+    var score: Int,
     val name: String
 ) {
-    constructor(user: User): this(id = user.id, score = user.score, name = user.name)
+    constructor(score: Score): this(id = score.id, score = score.score, name = score.name)
 }
 
 data class NotificationData (
@@ -32,12 +33,14 @@ object Repository {
 
 //    private var tTextsList  = mutableListOf<TransTextData>()
     private val tTextDao: TranslatedTextDao = MainActivity.appDatabase!!.translatedTextDao()
-    private val userDao: UserDao = MainActivity.appDatabase!!.userDao()
+    private val scoreDao: ScoreDao = MainActivity.appDatabase!!.scoreDao()
     private val notificationDao: NotificationDao = MainActivity.appDatabase!!.notificationDao()
 
-    fun addUser(id: String, name: String) {
-        userDao.insert(User(UserData(id = id, name = name)))
+    fun addScore(id: String, name: String, score: Int) {
+        scoreDao.insert(Score(ScoreData(id = id, score = score, name = name)))
     }
+
+    fun fetchScores(): List<ScoreData> = scoreDao.all!!.map { ScoreData(it!!) }
 
     fun addTranslatedText(id: String, text: String, meaning: String, lang: String) {
         val textFromDB = fetchText(text, lang)
@@ -71,6 +74,8 @@ object Repository {
             notificationDao.delete(Notification(id = notificationFromDB[0].id, hour = notificationFromDB[0].hour, minute = notificationFromDB[0].minute))
         }
     }
+
+    fun fetchAllTexts(): List<TransTextData> = tTextDao.all!!.map { TransTextData(it!!) }
 
     fun fetchNotification(): List<NotificationData> = notificationDao.all!!.map { NotificationData(it!!) }
     fun fetchLang(lang: String): List<TransTextData> = tTextDao.findByLang(lang)!!.map{ TransTextData(it!!) }

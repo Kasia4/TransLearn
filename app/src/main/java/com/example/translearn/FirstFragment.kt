@@ -36,6 +36,10 @@ class FirstFragment : Fragment() {
         view.findViewById<Button>(R.id.notify_button).setOnClickListener {
             this.findNavController().navigate(R.id.action_FirstFragment_to_NotificationFragment)
         }
+
+        view.findViewById<Button>(R.id.stats_button).setOnClickListener {
+            this.findNavController().navigate(R.id.action_FirstFragment_to_StatisticsFragment)
+        }
     }
 
     override fun onResume() {

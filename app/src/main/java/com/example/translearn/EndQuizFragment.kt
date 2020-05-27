@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.translearn.viewmodel.EndQuizViewModel
+import com.example.translearn.viewmodel.TransTextViewModel
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.end_quiz_fragment.*
 import kotlin.concurrent.fixedRateTimer
@@ -17,6 +20,7 @@ import kotlin.concurrent.fixedRateTimer
  */
 class EndQuizFragment : Fragment() {
     private val args: EndQuizFragmentArgs by navArgs()
+    private lateinit var viewModel: EndQuizViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +31,8 @@ class EndQuizFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(EndQuizViewModel::class.java)
+        viewModel.addScore(args.score)
         val scoreStr = "Score: ${args.score}"
         end_score_view.text=scoreStr
         back_button.setOnClickListener {

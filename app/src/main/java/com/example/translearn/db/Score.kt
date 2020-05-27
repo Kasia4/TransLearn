@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class User {
+class Score {
     @PrimaryKey
     var id: String
     //TODO change to number of learned phrases
@@ -14,10 +14,10 @@ class User {
     @ColumnInfo(name = "name")
     var name: String
 
-    constructor(userData: UserData) {
-        id = userData.id
-        score = userData.score
-        name = userData.name
+    constructor(scoreData: ScoreData) {
+        id = scoreData.id
+        score = scoreData.score
+        name = scoreData.name
     }
 
     constructor(id: String, score: Int, name: String) {

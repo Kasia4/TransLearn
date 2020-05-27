@@ -12,9 +12,6 @@
         tools:layout="@layout/menu_fragment">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
             android:id="@+id/action_FirstFragment_to_LearnFragment"
             app:destination="@id/LearnFragment" />
         <action
@@ -26,19 +23,6 @@
         <action
             android:id="@+id/action_FirstFragment_to_StatisticsFragment"
             app:destination="@id/StatisticsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.translearn.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/translate_fragment">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-        <argument
-            android:name="myArg"
-            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/LearnFragment"

@@ -27,7 +27,7 @@
         android:layout_below="@+id/added_view"
         android:layout_gravity="center_vertical|center_horizontal"
         android:gravity="center|center_horizontal"
-        android:text="Already quessed in quiz: "
+        android:text="Already guessed in quiz: "
         android:layout_marginTop="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/design_default_color_background"
