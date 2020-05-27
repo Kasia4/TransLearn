@@ -37,6 +37,13 @@ object Repository {
         }
     }
 
+    fun deleteText(text: String, lang: String) {
+        val textFromDB = fetchText(text, lang)
+        if (textFromDB.isNotEmpty()) {
+            tTextDao.delete(TranslatedText(id = textFromDB[0].id, text = text, meaning = textFromDB[0].meaning, lang = lang))
+        }
+    }
+
     fun fetchLang(lang: String): List<TransTextData> = tTextDao.findByLang(lang)!!.map{ TransTextData(it!!) }
     fun fetchThreeRandom(lang: String): List<TransTextData> = tTextDao.getThreeRandomByLang(lang)!!.map{ TransTextData(it!!) }
     private fun fetchText(text: String, lang: String): List<TransTextData> = tTextDao.findByText(text, lang)!!.map{ TransTextData(it!!) }

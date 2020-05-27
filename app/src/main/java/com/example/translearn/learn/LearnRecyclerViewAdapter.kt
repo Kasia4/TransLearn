@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.translearn.R
 import com.example.translearn.db.TransTextData
+import kotlinx.coroutines.processNextEventInCurrentThread
 
 class LearnRecyclerViewAdapter(var texts: List<TransTextData>) : RecyclerView.Adapter<LearnRecyclerViewAdapter.ViewHolder>(){
     class ViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
@@ -23,6 +24,10 @@ class LearnRecyclerViewAdapter(var texts: List<TransTextData>) : RecyclerView.Ad
 
     override fun getItemCount(): Int {
         return texts.size
+    }
+
+    fun getTextAt(position: Int): TransTextData {
+        return texts[position]
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

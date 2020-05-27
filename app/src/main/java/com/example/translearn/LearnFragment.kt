@@ -10,7 +10,9 @@ import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.translearn.learn.LearnRecyclerViewAdapter
 import com.example.translearn.translate.Language
 import com.example.translearn.viewmodel.LearnTextViewModel
@@ -32,12 +34,6 @@ class LearnFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.learn_fragment, container, false)
     }
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-//            parentFragmentManager.popBackStack(R.id.ChoiceQuizFragment, 0)
-//        }
-//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -70,6 +66,25 @@ class LearnFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = recycleViewAdapter
         }
+
+        val itemTouchHelperCall = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val tt = recycleViewAdapter.getTextAt(viewHolder.adapterPosition)
+                viewModel.deleteText(text = tt.text, lang = tt.lang)
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCall)
+        itemTouchHelper.attachToRecyclerView(to_learn_list)
 
         take_a_quiz_button.setOnClickListener{
             val action = LearnFragmentDirections.actionLearnFragmentToChoiceQuizFragment(this.lang.code, this.lang.name)

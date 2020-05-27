@@ -17,6 +17,11 @@ class LearnTextViewModel: ViewModel() {
         refreshTexts(lang)
     }
 
+    fun deleteText(text: String, lang: String) {
+        repository.deleteText(text, lang)
+        refreshTexts(lang)
+    }
+
     private fun refreshTexts(lang: String) {
         _translatedTexts.value = repository.fetchLang(lang)
     }
