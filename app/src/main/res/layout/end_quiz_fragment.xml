@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EndQuizFragment"
+    android:background="@color/colorAccent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/end_score_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Score: "
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center|center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/design_default_color_background"
+        android:textStyle="bold"
+        app:drawableTopCompat="@drawable/quiz_score_foreground"/>
+
+    <Button
+        android:id="@+id/back_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_marginTop="30dp"
+        android:foregroundGravity="center"
+        android:layout_centerInParent="true"
+        android:background="@color/design_default_color_background"
+        android:textColor="@color/colorAccent"
+        android:text="Go back to the main screen"
+        android:textStyle="bold"
+        android:layout_below="@+id/end_score_view" />
+
+</RelativeLayout>

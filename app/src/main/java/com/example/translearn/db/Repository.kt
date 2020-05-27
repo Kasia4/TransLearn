@@ -1,7 +1,5 @@
 package com.example.translearn.db
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.example.translearn.MainActivity
 import java.util.*
 

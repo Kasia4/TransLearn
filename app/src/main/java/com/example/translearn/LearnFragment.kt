@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.translearn.learn.LearnRecyclerViewAdapter
+import com.example.translearn.translate.Language
 import com.example.translearn.viewmodel.LearnTextViewModel
 import kotlinx.android.synthetic.main.learn_fragment.*
 
@@ -22,7 +24,7 @@ import kotlinx.android.synthetic.main.learn_fragment.*
 class LearnFragment : Fragment() {
     private lateinit var viewModel: LearnTextViewModel
     private val recycleViewAdapter: LearnRecyclerViewAdapter = LearnRecyclerViewAdapter(listOf())
-    private var lang: String = "en"
+    private var lang = Language("English", "en")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +32,12 @@ class LearnFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.learn_fragment, container, false)
     }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+//            parentFragmentManager.popBackStack(R.id.ChoiceQuizFragment, 0)
+//        }
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -46,8 +54,8 @@ class LearnFragment : Fragment() {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                lang = MainActivity.languages[position].code
-                viewModel.onResume(lang)
+                lang = MainActivity.languages[position]
+                viewModel.onResume(lang.code)
             }
         }
         // TODO use viewmodelprovider
@@ -64,13 +72,13 @@ class LearnFragment : Fragment() {
         }
 
         take_a_quiz_button.setOnClickListener{
-            Toast.makeText(context, "will be implemented", Toast.LENGTH_SHORT).show()
-            this.findNavController().navigate(R.id.action_LearnFragment_to_ChoiceQuizFragment)
+            val action = LearnFragmentDirections.actionLearnFragmentToChoiceQuizFragment(this.lang.code, this.lang.name)
+            this.findNavController().navigate(action)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.onResume(lang)
+        viewModel.onResume(lang.code)
     }
 }

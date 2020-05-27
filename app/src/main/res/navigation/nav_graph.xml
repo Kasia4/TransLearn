@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_TranslateFragment"
             app:destination="@id/TranslateFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_NotificationFragment"
+            app:destination="@id/NotificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -44,12 +47,11 @@
             app:destination="@id/ChoiceQuizFragment" />
     </fragment>
     <fragment
-        android:id="@+id/TranslateFragment"
-        android:name="com.example.translearn.TranslateFragment"
-        android:label="@string/translate_fragment_label"
-        tools:layout="@layout/translate_fragment">
-
-    </fragment>
+    android:id="@+id/TranslateFragment"
+    android:name="com.example.translearn.TranslateFragment"
+    android:label="@string/translate_fragment_label"
+    tools:layout="@layout/translate_fragment">
+</fragment>
 
     <fragment
         android:id="@+id/ChoiceQuizFragment"
@@ -57,6 +59,39 @@
         android:label="@string/choice_quiz_fragment_label"
         tools:layout="@layout/choice_quiz_fragment">
 
+        <argument
+            android:name="learn_lang_code"
+            app:argType="string"
+            android:defaultValue="en" />
+        <argument
+            android:name="learn_lang_name"
+            app:argType="string"
+            android:defaultValue="English" />
+        <action
+            android:id="@+id/action_ChoiceQuizFragment_to_EndQuizFragment"
+            app:destination="@id/EndQuizFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EndQuizFragment"
+        android:name="com.example.translearn.EndQuizFragment"
+        android:label="@string/end_quiz_fragment_label"
+        tools:layout="@layout/end_quiz_fragment">
+
+        <argument
+            android:name="score"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_EndQuizFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/NotificationFragment"
+        android:name="com.example.translearn.NotificationFragment"
+        android:label="@string/notification_fragment_label"
+        tools:layout="@layout/notification_fragment">
     </fragment>
 
 </navigation>

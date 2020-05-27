@@ -32,6 +32,10 @@ class FirstFragment : Fragment() {
         view.findViewById<Button>(R.id.quizz_button).setOnClickListener {
             this.findNavController().navigate(R.id.action_FirstFragment_to_LearnFragment)
         }
+
+        view.findViewById<Button>(R.id.notify_button).setOnClickListener {
+            this.findNavController().navigate(R.id.action_FirstFragment_to_NotificationFragment)
+        }
     }
 
     override fun onResume() {

@@ -1,5 +1,9 @@
 package com.example.translearn
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     companion object {
         var appDatabase: Database? = null
+        var notificationManager: NotificationManager? = null
         var languages: Array<Language> = arrayOf(
             Language("English", "en"), Language("Polish", "pl"),
             Language("Czech", "cs"), Language("Danish", "da"),
@@ -39,11 +44,7 @@ class MainActivity : AppCompatActivity() {
             applicationContext,
             Database::class.java, "wpam-db"
         ).allowMainThreadQueries().build()
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        createNotificationChannel()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -59,6 +60,23 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.channel_name)
+            val descriptionText = "For TransLearn notifications purpose"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val CHANNEL_ID = "channel_id"
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager!!.createNotificationChannel(channel)
         }
     }
 }

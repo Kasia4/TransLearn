@@ -18,4 +18,7 @@
     <string name="translate_fragment_label">Translate Fragment</string>
     <string name="edit_text_to_translate_hint">Touch and start typing...</string>
     <string name="choice_quiz_fragment_label">Choice Quiz Fragment</string>
+    <string name="end_quiz_fragment_label">End Quiz Fragment</string>
+    <string name="notification_fragment_label">Notification Fragment</string>
+    <string name="channel_name">notify_channel</string>
 </resources>

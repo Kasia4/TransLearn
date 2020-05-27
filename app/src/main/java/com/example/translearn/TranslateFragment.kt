@@ -12,7 +12,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.ViewModelProviders
 import com.example.translearn.translate.TranslationRequest
 import com.example.translearn.translate.TranslationResponseContainer
-import com.example.translearn.viewmodel.LearnTextViewModel
 import com.example.translearn.viewmodel.TransTextViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
@@ -48,8 +47,7 @@ class TranslateFragment : Fragment() {
                 spinner1.adapter = adapter
             }
         spinner1.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             }
@@ -63,9 +61,7 @@ class TranslateFragment : Fragment() {
                 spinner2.adapter = adapter
             }
         spinner2.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 dstLang = MainActivity.languages[position].code
@@ -79,18 +75,14 @@ class TranslateFragment : Fragment() {
             }
             else {
                 when {
-                    srcLang.isNullOrEmpty() -> {
-                        Toast.makeText(context, "Please select source language", Toast.LENGTH_SHORT)
-                            .show()
-                    }
                     dstLang.isNullOrEmpty() -> {
                         Toast.makeText(context, "Please select destination language", Toast.LENGTH_SHORT).show()
                     }
                     else -> {
-                        translate(input, srcLang!!, dstLang!!) { result ->
+                        translate(input, dstLang!!) { result ->
                             view.findViewById<AppCompatTextView>(R.id.translated_appCompatText).text = result
                             if(!result.isNullOrEmpty()) {
-                                viewModel.addText(input, result!!, dstLang!!)
+                                viewModel.addText(input, result, dstLang!!)
                             }
                         }
                     }
@@ -99,7 +91,7 @@ class TranslateFragment : Fragment() {
         }
     }
 
-    private fun translate(textToTrans: String, srcLang: String, dstLang: String, completion: (String?) -> Unit) {
+    private fun translate(textToTrans: String, dstLang: String, completion: (String?) -> Unit) {
         val url = "https://translation.googleapis.com/language/translate/v2?key="+getString(R.string.key)
 
         val translateRequest = TranslationRequest(textToTrans, srcLang, dstLang)
@@ -120,7 +112,7 @@ class TranslateFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val result = response?.body()?.string()
+                val result = response.body()?.string()
                 val transText: String
                 val translationResponse = gson.fromJson(result, TranslationResponseContainer::class.java)
                 transText = try {
