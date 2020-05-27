@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_ChoiceQuizFragment_to_EndQuizFragment"
             app:destination="@id/EndQuizFragment" />
+        <action
+            android:id="@+id/action_ChoiceQuizFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
     </fragment>
 
     <fragment

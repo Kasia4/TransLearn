@@ -81,7 +81,8 @@ class ChoiceQuizFragment : Fragment() {
     private fun generateQuestion(it: List<TransTextData>) {
         when {
             it.size < 3 -> {
-                Toast.makeText(context, "Not enough transleted test, 3 required", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Not enough translated phrases, 3 required", Toast.LENGTH_LONG).show()
+                findNavController().navigate(R.id.action_ChoiceQuizFragment_to_FirstFragment)
             }
             else -> {
                 val askedText = it[0].text
